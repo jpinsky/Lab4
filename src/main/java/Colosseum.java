@@ -92,6 +92,18 @@ public class Colosseum {
         int num = 0;
         System.out.println("Please name your Pokemon:");
         scanned = myScan.nextLine();
+        boolean empty = true;
+        while (empty) {
+            for (int i = 0; i < scanned.length(); i++) {
+                if (scanned.charAt(i) != ' ') {
+                    empty = false;
+                }
+            }
+            if (empty) {
+                System.out.println("Please put a non empty name:");
+                scanned = myScan.nextLine();
+            }
+        }
         tempPokemon.name = scanned;
         System.out.println("How many hit points will it have? (1-50):");
         scanned = myScan.nextLine();
