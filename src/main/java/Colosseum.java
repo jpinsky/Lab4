@@ -124,6 +124,16 @@ public class Colosseum {
         System.out.println("Split fifty points between attack level and defense level");
         System.out.println("Enter your attack level (1-49):");
         scanned = myScan.nextLine();
+        while (badNumber) {
+            try {
+                num = Integer.parseInt(scanned);
+                badNumber = false;
+            } catch (Exception e) {
+                System.out.println("Only include numbers:");
+                scanned = myScan.nextLine();
+            }
+        }
+        badNumber = true;
         while (num > MAX_ATTACK_LEVEL || num < 1) {
             System.out.println("Sorry. The attack level must be between 1 and 49:");
             scanned = myScan.nextLine();
