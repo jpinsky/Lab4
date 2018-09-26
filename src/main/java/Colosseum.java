@@ -89,37 +89,99 @@ public class Colosseum {
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
         String scanned = "";
+        int num = 0;
         System.out.println("Please name your Pokemon:");
         scanned = myScan.nextLine();
         tempPokemon.name = scanned;
         System.out.println("How many hit points will it have? (1-50):");
         scanned = myScan.nextLine();
-        while (Integer.parseInt(scanned) > MAX_HIT_POINTS || Integer.parseInt(scanned) < 1) {
-            System.out.println("Sorry. Hit points must be between 1 and 50:");
-            scanned = myScan.nextLine();
-        }
-        tempPokemon.hitPoints = Integer.parseInt(scanned);
-        System.out.println("Split fifty points between attack level and defense level");
-        System.out.println("Enter your attack level (1-49):");
-        scanned = myScan.nextLine();
-        while (Integer.parseInt(scanned) > MAX_ATTACK_LEVEL || Integer.parseInt(scanned) < 1) {
-            System.out.println("Sorry. The attack level must be between 1 and 49:");
-            scanned = myScan.nextLine();
-        }
-        tempPokemon.attackLevel = Integer.parseInt(scanned);
-        System.out.println("Enter your defense level (1-3):");
-        scanned = myScan.nextLine();
-        while (Integer.parseInt(scanned) > MAX_DEFENSE_LEVEL || Integer.parseInt(scanned) < 1
-                || Integer.parseInt(scanned) + tempPokemon.attackLevel > MAX_SKILL_POINTS) {
-            if (Integer.parseInt(scanned) > MAX_DEFENSE_LEVEL || Integer.parseInt(scanned) < 1) {
-                System.out.println("Sorry. The attack level must be between 1 and 3:");
-                scanned = myScan.nextLine();
-            } else {
-                System.out.println("Attack and Defense level cannot combine to be over 50 points:");
+        boolean badNumber = true;
+        while (badNumber) {
+            try {
+                num = Integer.parseInt(scanned);
+                badNumber = false;
+            } catch (Exception e) {
+                System.out.println("Only include numbers:");
                 scanned = myScan.nextLine();
             }
         }
-        tempPokemon.defenseLevel = Integer.parseInt(scanned);
+        badNumber = true;
+        while (num > MAX_HIT_POINTS || num < 1) {
+            System.out.println("Sorry. Hit points must be between 1 and 50:");
+            scanned = myScan.nextLine();
+            while (badNumber) {
+                try {
+                    num = Integer.parseInt(scanned);
+                    badNumber = false;
+                } catch (Exception e) {
+                    System.out.println("Only include numbers:");
+                    scanned = myScan.nextLine();
+                }
+            }
+            badNumber = true;
+        }
+        tempPokemon.hitPoints = num;
+        System.out.println("Split fifty points between attack level and defense level");
+        System.out.println("Enter your attack level (1-49):");
+        scanned = myScan.nextLine();
+        while (num > MAX_ATTACK_LEVEL || num < 1) {
+            System.out.println("Sorry. The attack level must be between 1 and 49:");
+            scanned = myScan.nextLine();
+            while (badNumber) {
+                try {
+                    num = Integer.parseInt(scanned);
+                    badNumber = false;
+                } catch (Exception e) {
+                    System.out.println("Only include numbers:");
+                    scanned = myScan.nextLine();
+                }
+            }
+            badNumber = true;
+        }
+        tempPokemon.attackLevel = num;
+        System.out.println("Enter your defense level (1-3):");
+        scanned = myScan.nextLine();
+        while (badNumber) {
+            try {
+                num = Integer.parseInt(scanned);
+                badNumber = false;
+            } catch (Exception e) {
+                System.out.println("Only include numbers:");
+                scanned = myScan.nextLine();
+            }
+        }
+        badNumber = true;
+        while (num > MAX_DEFENSE_LEVEL || num < 1
+                || num + tempPokemon.attackLevel > MAX_SKILL_POINTS) {
+            if (num > MAX_DEFENSE_LEVEL || num < 1) {
+                System.out.println("Sorry. The attack level must be between 1 and 3:");
+                scanned = myScan.nextLine();
+                while (badNumber) {
+                    try {
+                        num = Integer.parseInt(scanned);
+                        badNumber = false;
+                    } catch (Exception e) {
+                        System.out.println("Only include numbers:");
+                        scanned = myScan.nextLine();
+                    }
+                }
+                badNumber = true;
+            } else {
+                System.out.println("Attack and Defense level cannot combine to be over 50 points:");
+                scanned = myScan.nextLine();
+                while (badNumber) {
+                    try {
+                        num = Integer.parseInt(scanned);
+                        badNumber = false;
+                    } catch (Exception e) {
+                        System.out.println("Only include numbers:");
+                        scanned = myScan.nextLine();
+                    }
+                }
+                badNumber = true;
+            }
+        }
+        tempPokemon.defenseLevel = num;
         return tempPokemon;
     }
 
